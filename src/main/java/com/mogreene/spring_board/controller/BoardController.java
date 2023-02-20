@@ -33,27 +33,41 @@ public class BoardController {
      */
     @GetMapping("/list")
     public String list(Model model) {
-        log.info("get Mapping hello!");
+        log.info("Get List...");
         List<BoardDTO> list = boardService.getBoardList();
         log.info("BoardList Test : " + list);
         model.addAttribute("list", list);
         return "list";
     }
 
+    /**
+     * 게시글 등록화면
+     * @return
+     */
     @GetMapping("/write")
     public String writePage() {
         log.info("Get write...");
         return "write";
     }
 
+    /**
+     * 게시글 등록
+     * @param boardDTO
+     * @param bindingResult
+     * @param redirectAttributes
+     * @return write.html
+     */
     @PostMapping("/write")
     public String insert(@Valid BoardDTO boardDTO,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
         log.info("Post write...");
+        //todo binding error thymeleaf 로 뽑아내기
         if (bindingResult.hasErrors()) {
             log.error("write error!");
             redirectAttributes.addFlashAttribute("error", bindingResult.getAllErrors());
+
+            return "redirect:/board/write";
         }
         log.info("boardDTO : " + boardDTO);
         boardService.postArticle(boardDTO);

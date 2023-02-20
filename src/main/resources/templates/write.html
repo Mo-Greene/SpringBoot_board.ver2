@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="/board/write" method="post">
+    카테고리 :
+    <select name="cno">
+        <option value="null">카테고리 선택</option>
+        <option value="1">Java</option>
+        <option value="2">C</option>
+        <option value="3">PYTHON</option>
+    </select>
+    작성자 : <input name="writer">
+    비밀번호 : <input type="password" name="password">
+    제목 : <input name="title">
+    내용 : <textarea name="content"></textarea>
+    <button type="submit">저장</button>
+</form>
+
+</body>
+</html>
