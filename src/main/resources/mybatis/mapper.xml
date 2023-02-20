@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mogreene.spring_board.dao.BoardDAO">
+
+    <select id="getBoardList" resultType="com.mogreene.spring_board.dto.BoardDTO">
+        SELECT
+            bno, cno, title, writer, view, regDate, modDate
+        FROM
+            board
+        ORDER BY bno DESC limit 0, 10
+    </select>
+
+    <insert id="postArticle" parameterType="com.mogreene.spring_board.dto.BoardDTO">
+        INSERT INTO board
+            (writer, password, title, content, cno)
+        VALUES (#{writer}, #{password}, #{title}, #{content}, #{cno})
+    </insert>
+
+</mapper>
