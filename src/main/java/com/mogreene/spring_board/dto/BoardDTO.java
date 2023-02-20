@@ -38,6 +38,8 @@ public class BoardDTO {
     private String regDate;
     private String modDate;
     private int view;
-    private int cno;    //fk
+
+    private Long cno;    //fk
+    private String category;
 
 }

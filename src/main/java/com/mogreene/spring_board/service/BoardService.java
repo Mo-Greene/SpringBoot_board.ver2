@@ -30,7 +30,21 @@ public class BoardService {
         return boardDAO.getBoardList();
     }
 
+    //TODO 주석달기
     public void postArticle(BoardDTO boardDTO) {
         boardDAO.postArticle(boardDTO);
+    }
+
+    //TODO 주석달기
+    public BoardDTO getBoardView(Long bno) {
+        log.info("getBoardView...");
+        BoardDTO boardDTO = boardDAO.getBoardView(bno);
+        log.info("boardDTO : " + boardDTO);
+        return boardDTO;
+    }
+
+    public void deleteArticle(Long bno) {
+        log.info("deleteArticle...");
+        boardDAO.deleteArticle(bno);
     }
 }

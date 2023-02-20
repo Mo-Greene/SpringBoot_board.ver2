@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:each="dto : ${dto}">
+    <span th:text="${dto.category}"></span>
+    <span th:text="${dto.regDate}"></span>
+    <span th:text="${dto.modDate}"></span>
+    <span th:text="${dto.writer}"></span>
+    <span th:text="${dto.title}"></span>
+    <span th:text="${dto.content}"></span>
+
+</div>
+
+</body>
+</html>

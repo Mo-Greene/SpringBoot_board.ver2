@@ -8,6 +8,7 @@ import java.util.List;
 @Mapper
 public interface BoardDAO {
     List<BoardDTO> getBoardList();
-
     void postArticle(BoardDTO boardDTO);
+    BoardDTO getBoardView(Long bno);
+    void deleteArticle(Long bno);
 }

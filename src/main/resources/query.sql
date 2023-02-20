@@ -11,3 +11,8 @@ ORDER BY bno DESC
 
 INSERT INTO board(cno, writer, password, title, content)
 VALUES(?,?,?,?,?);
+
+/* 특정게시글 조회 */
+SELECT bno, category.category, title, writer, view, regDate, modDate
+FROM board JOIN category ON board.cno = category.cno
+WHERE bno = 124;
