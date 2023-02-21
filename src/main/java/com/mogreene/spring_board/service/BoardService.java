@@ -39,12 +39,20 @@ public class BoardService {
     public BoardDTO getBoardView(Long bno) {
         log.info("getBoardView...");
         BoardDTO boardDTO = boardDAO.getBoardView(bno);
+        boardDAO.viewCount(bno);
         log.info("boardDTO : " + boardDTO);
         return boardDTO;
     }
 
+    // TODO: 2023/02/21 삭제 주석
     public void deleteArticle(Long bno) {
         log.info("deleteArticle...");
         boardDAO.deleteArticle(bno);
+    }
+
+    // TODO: 2023/02/21 게시글 수정 좀 더 디테일하게
+    public void updateArticle(Long bno, BoardDTO boardDTO) {
+        log.info("updateArticle...");
+        boardDAO.updateArticle(bno, boardDTO);
     }
 }

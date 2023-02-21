@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:each="dto : ${dto}">
+    <form action="/board/modify" method="post">
+        <table>
+            <tr>
+                    <span th:text="${dto.category}"></span>
+                    <span th:text="${dto.regDate}"></span>
+                    <span th:text="${dto.modDate}"></span>
+                    <span th:text="${dto.view}"></span>
+
+
+                    <td>&nbsp;</td>
+                    <td align="center">작성자</td>
+                    <td><input name="writer"></td>
+
+                    <td align="center">비밀번호</td>
+                    <td><input type="password" name="password"></td>
+
+                    <td align="center">제목</td>
+                    <td><input name="title"></td>
+
+                    <td align="center">내용</td>
+                    <td><textarea name="content"></textarea></td>
+                </tr>
+            </table>
+        <button type="submit">저장</button>
+
+    </form>
+
+</div>
+</body>
+</html>

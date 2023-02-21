@@ -34,10 +34,30 @@
             bno = #{bno}
     </select>
 
+    <!--게시글 조회수 증가-->
+    <update id="viewCount" parameterType="long">
+        UPDATE
+            board
+        SET
+            view = view + 1
+        WHERE
+            bno = #{bno}
+    </update>
+
+    <!--게시글 삭제-->
     <delete id="deleteArticle">
         DELETE FROM
                    board
         WHERE
             bno = #{bno}
     </delete>
+
+    <update id="updateArticle" parameterType="com.mogreene.spring_board.dto.BoardDTO">
+        UPDATE
+            board
+        SET
+            writer = #{writer}, title = #{title}, content = #{content}, modDate = current_timestamp
+        WHERE
+            bno = #{bno}
+    </update>
 </mapper>

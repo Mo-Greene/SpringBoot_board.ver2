@@ -11,4 +11,6 @@ public interface BoardDAO {
     void postArticle(BoardDTO boardDTO);
     BoardDTO getBoardView(Long bno);
     void deleteArticle(Long bno);
+    void updateArticle(Long bno, BoardDTO boardDTO);
+    void viewCount(Long bno);
 }

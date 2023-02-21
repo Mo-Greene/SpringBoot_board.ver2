@@ -99,4 +99,33 @@ public class BoardController {
         boardService.deleteArticle(bno);
         return "redirect:/board/list";
     }
+
+    /**
+     * 수정 페이지 Get
+     * @param bno
+     * @param model
+     * @return
+     */
+    @GetMapping("/modify/{bno}")
+    public String getModify(@PathVariable("bno") Long bno, Model model) {
+        log.info("getModify...");
+        BoardDTO boardDTO = boardService.getBoardView(bno);
+        model.addAttribute("dto", boardDTO);
+        return "modify";
+    }
+
+    /**
+     * 게시글 수
+     * @param bno
+     * @param boardDTO
+     * @return
+     */
+    // TODO: 2023/02/21 put, delete 적용 해야 ajax 로 보내는걸로 하자
+    @PostMapping("/modify/{bno}")
+    public String updateArticle(@PathVariable("bno") Long bno, BoardDTO boardDTO) {
+        log.info("bno : " + bno);
+        log.info("modifyArticle...");
+        boardService.updateArticle(bno, boardDTO);
+        return "redirect:/board/list";
+    }
 }
