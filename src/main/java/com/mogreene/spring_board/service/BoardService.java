@@ -2,6 +2,7 @@ package com.mogreene.spring_board.service;
 
 import com.mogreene.spring_board.dao.BoardDAO;
 import com.mogreene.spring_board.dto.BoardDTO;
+import com.mogreene.spring_board.dto.PageDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,14 +21,13 @@ public class BoardService {
      * @return List<BoardDTO>
      */
     public List<BoardDTO> getBoardList() {
-        List<BoardDTO> list = boardDAO.getBoardList();
-        //TODO modDate "-" 처리해야됨
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getModDate() == null) {
-                list.get(i).setModDate("-");
-            }
-        }
+        log.info("getBoardList...");
         return boardDAO.getBoardList();
+    }
+
+    public List<BoardDTO> getBoardListWithPaging(PageDTO pageDTO) {
+        log.info("getBoardListWithPaging...");
+        return boardDAO.getBoardListWithPaging(pageDTO);
     }
 
     //TODO 주석달기

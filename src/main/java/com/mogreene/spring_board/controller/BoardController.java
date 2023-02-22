@@ -1,6 +1,7 @@
 package com.mogreene.spring_board.controller;
 
 import com.mogreene.spring_board.dto.BoardDTO;
+import com.mogreene.spring_board.dto.PageDTO;
 import com.mogreene.spring_board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,13 +27,21 @@ public class BoardController {
 
     /**
      * 전체 조회
+     *
      * @param model
      * @return
      */
+//    @GetMapping("/list")
+//    public String list(Model model) {
+//        log.info("Get List...");
+//        List<BoardDTO> list = boardService.getBoardList();
+//        model.addAttribute("list", list);
+//        return "list";
+//    }
     @GetMapping("/list")
-    public String list(Model model) {
-        log.info("Get List...");
-        List<BoardDTO> list = boardService.getBoardList();
+    public String listWithPaging(Model model, PageDTO pageDTO) {
+        log.info("Get ListWithPaging...");
+        List<BoardDTO> list = boardService.getBoardListWithPaging(pageDTO);
         model.addAttribute("list", list);
         return "list";
     }
@@ -59,7 +68,6 @@ public class BoardController {
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
         log.info("Post write...");
-        //todo binding error thymeleaf 로 뽑아내기
         // TODO: 2023/02/22 유효성 검사 프론트부분 아직 안됐음
         if (bindingResult.hasErrors()) {
             log.error("write error!");

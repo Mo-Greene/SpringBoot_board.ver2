@@ -9,7 +9,6 @@ FROM board
 ORDER BY bno DESC
     LIMIT 0, 5;
 
-
 /* 특정게시글 조회 */
 SELECT bno, category.category, title, writer, view, regDate, modDate
 FROM board JOIN category ON board.cno = category.cno
@@ -18,3 +17,7 @@ WHERE bno = 124;
 /* 게시글 삭제 */
 DELETE FROM board
 WHERE bno = 72;
+
+/* 전체 게시글 수*/
+SELECT count(bno)
+FROM board;
