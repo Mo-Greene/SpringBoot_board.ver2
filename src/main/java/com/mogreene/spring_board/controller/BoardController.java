@@ -119,12 +119,12 @@ public class BoardController {
      * @param boardDTO
      * @return
      */
-    // TODO: 2023/02/21 put, delete 적용 해야 ajax 로 보내는걸로 하자
+    // TODO: 2023/02/21 put -> post 로 적용
     @PostMapping("/modify/{bno}")
-    public String updateArticle(@PathVariable("bno") Long bno, BoardDTO boardDTO) {
-        log.info("bno : " + bno);
+    public String updateArticle(BoardDTO boardDTO) {
+        log.info("bno : " + boardDTO.getBno());
         log.info("modifyArticle...");
-        boardService.updateArticle(bno, boardDTO);
+        boardService.updateArticle(boardDTO);
         return "redirect:/board/list";
     }
 }

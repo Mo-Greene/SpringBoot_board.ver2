@@ -51,8 +51,8 @@ public class BoardService {
     }
 
     // TODO: 2023/02/21 게시글 수정 좀 더 디테일하게
-    public void updateArticle(Long bno, BoardDTO boardDTO) {
+    public void updateArticle(BoardDTO boardDTO) {
         log.info("updateArticle...");
-        boardDAO.updateArticle(bno, boardDTO);
+        boardDAO.updateArticle(boardDTO);
     }
 }

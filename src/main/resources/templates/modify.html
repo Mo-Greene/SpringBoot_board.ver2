@@ -20,7 +20,7 @@
         <div class="panel">
             <div class="panel-body">
                 <div class="table-responsive" style="text-align:center;">
-
+                    <form th:action="@{/board/modify/{bno}(bno=${dto.bno})}" method="post">
                         <table id="datatable-scroller"
                                class="table table-bordered tbl_Form">
                             <caption></caption>
@@ -79,11 +79,11 @@
                             </tr>
                             </tbody>
                         </table>
-
-                </div>
-                <div style="margin-left: 10px">
-                    <button type="submit" class="btn btn-primary">저장</button>
-                    <a th:href="@{/board/view/{bno}(bno=${dto.bno})}" class="btn btn-danger">취소</a>
+                        <div style="margin-left: 10px">
+                            <button type="submit" class="btn btn-primary">저장</button>
+                            <a th:href="@{/board/view/{bno}(bno=${dto.bno})}" class="btn btn-danger">취소</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

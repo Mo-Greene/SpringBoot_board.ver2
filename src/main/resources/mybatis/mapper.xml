@@ -57,6 +57,7 @@
             bno = #{bno}
     </delete>
 
+    <!--게시글 수정-->
     <update id="updateArticle" parameterType="com.mogreene.spring_board.dto.BoardDTO">
         UPDATE
             board
