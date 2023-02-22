@@ -7,10 +7,15 @@
     <!-- TODO 페이지네이션 limit 0,10 수정 -->
     <select id="getBoardList" resultType="com.mogreene.spring_board.dto.BoardDTO">
         SELECT
-            bno, cno, title, writer, view, regDate, modDate
+            bno, c.category, title, writer, view, regDate, modDate
         FROM
-            board
-        ORDER BY bno DESC limit 0, 10
+            board b
+            JOIN
+                category c ON b.cno = c.cno
+        ORDER BY
+            bno
+        DESC
+            limit 0, 10
     </select>
 
     <!--게시글 등록-->

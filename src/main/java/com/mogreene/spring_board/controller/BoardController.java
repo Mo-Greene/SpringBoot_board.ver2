@@ -33,7 +33,6 @@ public class BoardController {
     public String list(Model model) {
         log.info("Get List...");
         List<BoardDTO> list = boardService.getBoardList();
-        log.info("BoardList Test : " + list);
         model.addAttribute("list", list);
         return "list";
     }
@@ -61,19 +60,17 @@ public class BoardController {
                          RedirectAttributes redirectAttributes) {
         log.info("Post write...");
         //todo binding error thymeleaf 로 뽑아내기
+        // TODO: 2023/02/22 유효성 검사 프론트부분 아직 안됐음
         if (bindingResult.hasErrors()) {
             log.error("write error!");
             redirectAttributes.addFlashAttribute("error", bindingResult.getAllErrors());
 
             return "redirect:/board/write";
         }
-        log.info("boardDTO : " + boardDTO);
         boardService.postArticle(boardDTO);
 
         return "redirect:/board/list";
     }
-
-    //todo 게시판-보기
 
     /**
      * 특정 게시글 조회
@@ -91,9 +88,10 @@ public class BoardController {
 
     /**
      * 게시글 삭제
-     * TODO get 매핑으로 할지 delete 매핑으로 할지 선택
+     * @param bno
+     * @return
      */
-    @GetMapping("/delete/{bno}")
+    @DeleteMapping("/delete/{bno}")
     public String deleteArticle(@PathVariable("bno") Long bno) {
         log.info("deleteArticle...");
         boardService.deleteArticle(bno);
@@ -106,6 +104,7 @@ public class BoardController {
      * @param model
      * @return
      */
+    // TODO: 2023/02/22 게시글 수정 조회시에도 조회수가 올라감! 
     @GetMapping("/modify/{bno}")
     public String getModify(@PathVariable("bno") Long bno, Model model) {
         log.info("getModify...");
@@ -115,7 +114,7 @@ public class BoardController {
     }
 
     /**
-     * 게시글 수
+     * 게시글 수정
      * @param bno
      * @param boardDTO
      * @return
