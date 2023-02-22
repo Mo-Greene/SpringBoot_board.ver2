@@ -115,7 +115,6 @@ public class BoardController {
 
     /**
      * 게시글 수정
-     * @param bno
      * @param boardDTO
      * @return
      */
