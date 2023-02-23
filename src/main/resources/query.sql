@@ -21,3 +21,10 @@ WHERE bno = 72;
 /* 전체 게시글 수*/
 SELECT count(bno)
 FROM board;
+
+/* 댓글 입력 */
+insert into reply (replyContent, regDate, bno)
+values (?, default, ?);
+/* 댓글 조회 */
+select replyContent, regDate from reply
+where bno = 10 order by regDate desc;

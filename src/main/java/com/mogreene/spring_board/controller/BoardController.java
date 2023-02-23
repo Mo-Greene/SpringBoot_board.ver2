@@ -2,7 +2,9 @@ package com.mogreene.spring_board.controller;
 
 import com.mogreene.spring_board.dto.BoardDTO;
 import com.mogreene.spring_board.dto.PageRequestDTO;
+import com.mogreene.spring_board.dto.ReplyDTO;
 import com.mogreene.spring_board.service.BoardService;
+import com.mogreene.spring_board.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final ReplyService replyService;
 
     /**
      * 전체 조회
@@ -99,6 +102,8 @@ public class BoardController {
     public String getBoardView(@PathVariable("bno") Long bno, Model model) {
         log.info("getBoardView...");
         BoardDTO boardDTO = boardService.getBoardView(bno);
+        List<ReplyDTO> replyList = replyService.getReply(bno);
+        boardDTO.setReplyList(replyList);
         model.addAttribute("dto", boardDTO);
         return "view";
     }
@@ -135,7 +140,6 @@ public class BoardController {
      * @param boardDTO
      * @return
      */
-    // TODO: 2023/02/21 put -> post 로 적용
     @PostMapping("/modify/{bno}")
     public String updateArticle(BoardDTO boardDTO) {
         log.info("bno : " + boardDTO.getBno());

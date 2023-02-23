@@ -46,8 +46,8 @@ public class BoardService {
     //TODO 주석달기
     public BoardDTO getBoardView(Long bno) {
         log.info("getBoardView...");
-        BoardDTO boardDTO = boardDAO.getBoardView(bno);
         boardDAO.viewCount(bno);
+        BoardDTO boardDTO = boardDAO.getBoardView(bno);
         log.info("boardDTO : " + boardDTO);
         return boardDTO;
     }

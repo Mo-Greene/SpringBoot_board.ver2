@@ -3,6 +3,7 @@
 
 <mapper namespace="com.mogreene.spring_board.dao.BoardDAO">
 
+    <!--게시글 갯수-->
     <select id="totalCount" resultType="int">
         SELECT
             count(bno)
@@ -11,7 +12,6 @@
     </select>
 
     <!--게시글 전체조회-->
-    <!-- TODO 페이지네이션 limit 0,10 수정 -->
     <select id="getBoardList" resultType="com.mogreene.spring_board.dto.BoardDTO">
         SELECT
             bno, c.category, title, writer, view, regDate, modDate
@@ -50,7 +50,7 @@
     <!--특정 게시글 조회-->
     <select id="getBoardView" resultType="com.mogreene.spring_board.dto.BoardDTO">
         SELECT
-            bno, category.category, title, writer, view, regDate, modDate
+            bno, category.category, title, writer, content, view, regDate, modDate
         FROM
             board
             JOIN category

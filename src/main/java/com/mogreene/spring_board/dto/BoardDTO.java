@@ -5,9 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import java.util.List;
 
 @Data
 @Builder
@@ -34,13 +32,11 @@ public class BoardDTO {
 //    @NotBlank(message = "비밀번호를 적어주세요")
 //    @Pattern(regexp = "[a-zA-Z1-9]{4,16}", message = "비밀번호는 영문, 숫자 포함 4~16자 이내로 작성해주세요.")
     private String password;
-
     private String passwordCheck;
     private String regDate;
     private String modDate;
     private int view;
-
     private Long cno;    //fk
     private String category;
-
+    private List<ReplyDTO> replyList;
 }
