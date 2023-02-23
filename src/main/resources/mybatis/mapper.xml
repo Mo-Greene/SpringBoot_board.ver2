@@ -35,7 +35,7 @@
             category c ON b.cno = c.cno
         ORDER BY
             bno DESC
-            limit #{offset}, #{size}
+            limit #{skip}, #{size}
     </select>
 
     <!--게시글 등록-->

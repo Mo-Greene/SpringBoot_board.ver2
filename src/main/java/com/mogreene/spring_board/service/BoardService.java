@@ -2,7 +2,8 @@ package com.mogreene.spring_board.service;
 
 import com.mogreene.spring_board.dao.BoardDAO;
 import com.mogreene.spring_board.dto.BoardDTO;
-import com.mogreene.spring_board.dto.PageDTO;
+import com.mogreene.spring_board.dto.PageRequestDTO;
+import com.mogreene.spring_board.dto.PageResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,9 +26,16 @@ public class BoardService {
         return boardDAO.getBoardList();
     }
 
-    public List<BoardDTO> getBoardListWithPaging(PageDTO pageDTO) {
+    public PageResponseDTO<BoardDTO> getBoardListWithPaging(PageRequestDTO pageRequestDTO) {
         log.info("getBoardListWithPaging...");
-        return boardDAO.getBoardListWithPaging(pageDTO);
+        List<BoardDTO> list = boardDAO.getBoardListWithPaging(pageRequestDTO);
+        int total = boardDAO.totalCount(pageRequestDTO);
+
+        return PageResponseDTO.<BoardDTO>withAll()
+                .dtoList(list)
+                .total(total)
+                .pageRequestDTO(pageRequestDTO)
+                .build();
     }
 
     //TODO 주석달기

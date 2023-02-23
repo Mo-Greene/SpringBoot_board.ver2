@@ -1,7 +1,7 @@
 package com.mogreene.spring_board.controller;
 
 import com.mogreene.spring_board.dto.BoardDTO;
-import com.mogreene.spring_board.dto.PageDTO;
+import com.mogreene.spring_board.dto.PageRequestDTO;
 import com.mogreene.spring_board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,10 +39,19 @@ public class BoardController {
 //        return "list";
 //    }
     @GetMapping("/list")
-    public String listWithPaging(Model model, PageDTO pageDTO) {
+    public String listWithPaging(@Valid PageRequestDTO pageRequestDTO,
+                                 BindingResult bindingResult,
+                                 Model model) {
         log.info("Get ListWithPaging...");
-        List<BoardDTO> list = boardService.getBoardListWithPaging(pageDTO);
-        model.addAttribute("list", list);
+
+        if (bindingResult.hasErrors()) {
+            pageRequestDTO = PageRequestDTO.builder().build();
+        }
+
+        log.info(String.valueOf(boardService.getBoardListWithPaging(pageRequestDTO)));
+
+        model.addAttribute("list", boardService.getBoardListWithPaging(pageRequestDTO));
+
         return "list";
     }
 

@@ -14,7 +14,6 @@
     <small class="text-muted">목록</small>
 </h3>
 
-
 <div class="border container-sm">
     <table class="table">
         <thead class="table-light">
@@ -28,7 +27,7 @@
             </tr>
             </thead>
             <tbody class="table-group-divider">
-            <tr th:each="list : ${list}" style="text-align: center">
+            <tr th:each="list : ${list.dtoList}" style="text-align: center">
                 <th scope="row">[[${list.category}]]</th>
                 <td><a th:href="@{/board/view/{bno}(bno=${list.bno})}">[[${list.title}]]</a></td>
                 <td>[[${list.writer}]]</td>
@@ -38,20 +37,42 @@
             </tr>
         </tbody>
     </table>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">이전</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">다음</a></li>
+    <div class="d-flex justify-content-center">
+        <ul class="pagination flex-wrap">
+            <li class="page-item" th:if="${list.prev}">
+                <a class="page-link" th:data-num="${list.startPage - 1}">이전</a>
+            </li>
+            <th:block th:each="i : ${#numbers.sequence(list.startPage, list.endPage)}">
+                <li th:class="${list.page == i} ? 'page-item active': 'page-item'">
+                    <a class="page-link" th:data-num="${i}">[[ ${i} ]]</a>
+                </li>
+            </th:block>
+            <li class="page-item" th:if="${list.next}">
+                <a class="page-link" th:data-num="${list.endPage + 1}">다음</a>
+            </li>
         </ul>
-    </nav>
+    </div>
 
 
     <button type="button" th:onclick="|location.href='@{/board/write}'|" id="button" class="btn btn-primary" style="float: right; margin-top: 5px">등록</button>
 </div>
 
+<script>
 
+    document.querySelector(".pagination").addEventListener("click", function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        const target = ev.target
+
+        if (target.tagName !== 'A') {
+            return
+        }
+        const num = target.getAttribute("data-num")
+
+        self.location = `/board/list?page=${num}`
+    }, false);
+
+</script>
 </body>
 </html>
