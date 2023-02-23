@@ -140,7 +140,7 @@ public class BoardController {
      * @param boardDTO
      * @return
      */
-    // TODO: 2023/02/23 수정버튼 클릭시 조회수 증가 수정필요 
+    // TODO: 2023/02/23 수정버튼 클릭시 조회수 증가 수정필가
     @PostMapping("/modify/{bno}")
     public String updateArticle(BoardDTO boardDTO) {
         log.info("bno : " + boardDTO.getBno());
