@@ -86,4 +86,13 @@
         WHERE
             bno = #{bno}
     </update>
+
+    <select id="dbPassword" resultType="String">
+        SELECT
+            password
+        FROM
+            board
+        WHERE
+            bno = #{bno}
+    </select>
 </mapper>

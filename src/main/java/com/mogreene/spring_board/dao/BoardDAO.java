@@ -16,4 +16,5 @@ public interface BoardDAO {
     void deleteArticle(Long bno);
     void updateArticle(BoardDTO boardDTO);
     void viewCount(Long bno);
+    String dbPassword(BoardDTO boardDTO);
 }

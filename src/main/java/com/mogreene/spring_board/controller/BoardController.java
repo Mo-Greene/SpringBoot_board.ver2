@@ -78,7 +78,7 @@ public class BoardController {
     @PostMapping("/write")
     public String insert(@Valid BoardDTO boardDTO,
                          BindingResult bindingResult,
-                         RedirectAttributes redirectAttributes) {
+                         RedirectAttributes redirectAttributes) throws Exception {
         log.info("Post write...");
         // TODO: 2023/02/22 유효성 검사 프론트부분 아직 안됐음
         if (bindingResult.hasErrors()) {
@@ -140,12 +140,16 @@ public class BoardController {
      * @param boardDTO
      * @return
      */
-    // TODO: 2023/02/23 수정버튼 클릭시 조회수 증가 수정필가
+    // TODO: 2023/02/23 수정버튼 클릭시 조회수 증가 수정필요
+    // TODO: 2023/02/23 예외처리 필요
     @PostMapping("/modify/{bno}")
-    public String updateArticle(BoardDTO boardDTO) {
-        log.info("bno : " + boardDTO.getBno());
-        log.info("modifyArticle...");
-        boardService.updateArticle(boardDTO);
+    public String updateArticle(BoardDTO boardDTO) throws Exception {
+        log.info("updateArticle...");
+        try {
+            boardService.updateArticle(boardDTO);
+        } catch (Exception e) {
+            throw new Exception("비밀번호가 같지 않습니다.");
+        }
         return "redirect:/board/list";
     }
 }
