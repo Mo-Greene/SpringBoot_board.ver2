@@ -6,6 +6,7 @@ import com.mogreene.spring_board.dto.PageRequestDTO;
 import com.mogreene.spring_board.dto.PageResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 public class BoardService {
 
     private final BoardDAO boardDAO;
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * 전체 게시글 조회
@@ -38,29 +40,50 @@ public class BoardService {
                 .build();
     }
 
-    //TODO 주석달기
-    public void postArticle(BoardDTO boardDTO) {
-        boardDAO.postArticle(boardDTO);
+    /**
+     * 게시글 등록 및 비밀번호 복호화
+     * @param boardDTO
+     * @throws Exception
+     */
+    public void postArticle(BoardDTO boardDTO) throws Exception {
+        log.info("postArticle...");
+
+        if (!boardDTO.getPassword().equals(boardDTO.getPasswordCheck())) {
+            throw new Exception("비밀번호가 같지 않습니다.");
+        } else {
+            String password = passwordEncoder.encode(boardDTO.getPassword());
+            boardDTO.setPassword(password);
+            boardDAO.postArticle(boardDTO);
+        }
     }
 
     //TODO 주석달기
     public BoardDTO getBoardView(Long bno) {
         log.info("getBoardView...");
+
         boardDAO.viewCount(bno);
         BoardDTO boardDTO = boardDAO.getBoardView(bno);
-        log.info("boardDTO : " + boardDTO);
         return boardDTO;
     }
 
     // TODO: 2023/02/21 삭제 주석
     public void deleteArticle(Long bno) {
         log.info("deleteArticle...");
+
         boardDAO.deleteArticle(bno);
     }
 
-    // TODO: 2023/02/21 게시글 수정 좀 더 디테일하게
-    public void updateArticle(BoardDTO boardDTO) {
+    /**
+     * 게시글 수정 비밀번호 확인 로직 추가
+     * @param boardDTO
+     */
+    public void updateArticle(BoardDTO boardDTO) throws Exception {
         log.info("updateArticle...");
+
+        String password = boardDAO.dbPassword(boardDTO);
+        if (!passwordEncoder.matches(boardDTO.getPassword(), password)) {
+            throw new Exception("비밀번호가 같지 않습니다.");
+        }
         boardDAO.updateArticle(boardDTO);
     }
 }
