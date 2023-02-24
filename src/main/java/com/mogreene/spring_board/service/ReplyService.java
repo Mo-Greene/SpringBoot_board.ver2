@@ -15,12 +15,20 @@ public class ReplyService {
 
     private final ReplyDAO replyDAO;
 
-    // TODO: 2023/02/23 주석달기
+    /**
+     * 댓글 등록
+     * @param replyDTO
+     */
     public void postReply(ReplyDTO replyDTO) {
         log.info("postReply do...");
         replyDAO.postReply(replyDTO);
     }
 
+    /**
+     * 댓글 조회
+     * @param bno
+     * @return
+     */
     public List<ReplyDTO> getReply(Long bno) {
         log.info("getReply do...");
         return replyDAO.getReplyList(bno);

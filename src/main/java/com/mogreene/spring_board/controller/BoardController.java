@@ -40,13 +40,11 @@ public class BoardController {
                                  BindingResult bindingResult,
                                  Model model) {
         log.info("Get ListWithPaging...");
-        log.info("pageRequestDTO : " + pageRequestDTO);
 
         if (bindingResult.hasErrors()) {
             pageRequestDTO = PageRequestDTO.builder().build();
         }
 
-        // TODO: 2023/02/24 동적쿼리 만들자 검색조건
         model.addAttribute("list", boardService.getBoardListWithPaging(pageRequestDTO));
 
         return "list";

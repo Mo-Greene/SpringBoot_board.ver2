@@ -16,6 +16,11 @@ public class ReplyController {
 
     private final ReplyService replyService;
 
+    /**
+     * 댓글 등록
+     * @param replyDTO
+     * @return
+     */
     // TODO: 2023/02/23 비동기 처리 필요
     @PostMapping("/reply/write")
     public String writeReply(ReplyDTO replyDTO) {
