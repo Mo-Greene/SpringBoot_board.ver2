@@ -28,9 +28,15 @@ public class BoardService {
         return boardDAO.getBoardList();
     }
 
+    /**
+     * 게시글 페이지네이션 조회 + 제목 80자 이상 제한
+     * @param pageRequestDTO
+     * @return
+     */
     public PageResponseDTO<BoardDTO> getBoardListWithPaging(PageRequestDTO pageRequestDTO) {
         log.info("getBoardListWithPaging...");
         List<BoardDTO> list = boardDAO.getBoardListWithPaging(pageRequestDTO);
+        skipTitle(list);
         int total = boardDAO.totalCount(pageRequestDTO);
 
         return PageResponseDTO.<BoardDTO>withAll()
@@ -38,6 +44,19 @@ public class BoardService {
                 .total(total)
                 .pageRequestDTO(pageRequestDTO)
                 .build();
+    }
+
+    /**
+     * getBoardListWithPaging 메서드 추출
+     * @param list
+     */
+    private void skipTitle(List<BoardDTO> list) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getTitle().length() > 80) {
+                String title = list.get(i).getTitle().substring(0, 80) + "...";
+                list.get(i).setTitle(title);
+            }
+        }
     }
 
     /**
@@ -57,7 +76,11 @@ public class BoardService {
         }
     }
 
-    //TODO 주석달기
+    /**
+     * 게시글 상세조회
+     * @param bno
+     * @return boardDTO
+     */
     public BoardDTO getBoardView(Long bno) {
         log.info("getBoardView...");
 
@@ -66,7 +89,10 @@ public class BoardService {
         return boardDTO;
     }
 
-    // TODO: 2023/02/21 삭제 주석
+    /**
+     * 게시글 삭제
+     * @param bno
+     */
     public void deleteArticle(Long bno) {
         log.info("deleteArticle...");
 

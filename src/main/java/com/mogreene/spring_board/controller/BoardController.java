@@ -29,18 +29,12 @@ public class BoardController {
     private final ReplyService replyService;
 
     /**
-     * 전체 조회
-     *
+     * 게시글 페이지 네이션
+     * @param pageRequestDTO
+     * @param bindingResult
      * @param model
-     * @return
+     * @return list.html
      */
-//    @GetMapping("/list")
-//    public String list(Model model) {
-//        log.info("Get List...");
-//        List<BoardDTO> list = boardService.getBoardList();
-//        model.addAttribute("list", list);
-//        return "list";
-//    }
     @GetMapping("/list")
     public String listWithPaging(@Valid PageRequestDTO pageRequestDTO,
                                  BindingResult bindingResult,
@@ -51,8 +45,7 @@ public class BoardController {
             pageRequestDTO = PageRequestDTO.builder().build();
         }
 
-        log.info(String.valueOf(boardService.getBoardListWithPaging(pageRequestDTO)));
-
+        // TODO: 2023/02/24 동적쿼리 만들자 검색조건
         model.addAttribute("list", boardService.getBoardListWithPaging(pageRequestDTO));
 
         return "list";

@@ -14,6 +14,39 @@
     <small class="text-muted">목록</small>
 </h3>
 
+<div class="row content">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">검색</h5>
+                <form action="/board/list" method="get">
+                    <input type="hidden" name="size" value="${pageRequestDTO.size}">
+                    <div class="input-group mb-3 dueDateDiv">
+                        <input type="date" name="from" class="form-control">
+                        <input type="date" name="to" class="form-control">
+                    </div>
+                    <div class="input-group mb-3">
+                        <select class="form-select" name="cno" aria-label="Floating label select example">
+                            <option selected>카테고리 선택</option>
+                            <option value="1">JAVA</option>
+                            <option value="2">C</option>
+                            <option value="3">PYTHON</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input type="text" name="keyword" class="form-control" placeholder="검색어">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="float-end" style="margin-top: 10px">
+                            <button class="btn btn-primary" type="submit">검색</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="border container-sm">
     <table class="table">
         <thead class="table-light">
