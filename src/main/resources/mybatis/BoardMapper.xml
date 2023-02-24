@@ -29,23 +29,7 @@
             count(bno)
         FROM
             board b
-        <where>
-            <if test="keyword != null and keyword.length > 0">
-                title LIKE CONCAT('%', #{keyword}, '%')
-                OR content LIKE CONCAT('%', #{keyword}, '%')
-                OR writer LIKE CONCAT('%', #{keyword}, '%')
-            </if>
-            <if test="cno > 0">
-                <trim prefix="and">
-                    b.cno = #{cno}
-                </trim>
-            </if>
-            <if test="from != null and to != null">
-                <trim prefix="and">
-                    regDate BETWEEN date(#{from}) AND date(#{to})
-                </trim>
-            </if>
-        </where>
+        <include refid="search"></include>
     </select>
 
     <!--페이지 네이션 + 검색조건 데이터-->
@@ -56,23 +40,7 @@
             board b
             JOIN
             category c ON b.cno = c.cno
-        <where>
-            <if test="keyword != null and keyword.length > 0">
-                title LIKE CONCAT('%', #{keyword}, '%')
-                OR content LIKE CONCAT('%', #{keyword}, '%')
-                OR writer LIKE CONCAT('%', #{keyword}, '%')
-            </if>
-            <if test="cno > 0">
-                <trim prefix="and">
-                    b.cno = #{cno}
-                </trim>
-            </if>
-            <if test="from != null and to != null">
-                <trim prefix="and">
-                    regDate BETWEEN date(#{from}) AND date(#{to})
-                </trim>
-            </if>
-        </where>
+        <include refid="search"></include>
         ORDER BY
             bno DESC
             limit #{skip}, #{size}
