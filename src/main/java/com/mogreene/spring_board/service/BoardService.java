@@ -20,15 +20,6 @@ public class BoardService {
     private final PasswordEncoder passwordEncoder;
 
     /**
-     * 전체 게시글 조회
-     * @return List<BoardDTO>
-     */
-    public List<BoardDTO> getBoardList() {
-        log.info("getBoardList...");
-        return boardDAO.getBoardList();
-    }
-
-    /**
      * 게시글 페이지네이션 조회 + 제목 80자 이상 제한
      * @param pageRequestDTO
      * @return

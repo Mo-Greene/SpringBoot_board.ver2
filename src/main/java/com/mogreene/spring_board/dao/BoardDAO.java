@@ -9,7 +9,6 @@ import java.util.List;
 @Mapper
 public interface BoardDAO {
     int totalCount(PageRequestDTO pageRequestDTO);
-    List<BoardDTO> getBoardList();
     List<BoardDTO> getBoardListWithPaging(PageRequestDTO pageRequestDTO);
     void postArticle(BoardDTO boardDTO);
     BoardDTO getBoardView(Long bno);

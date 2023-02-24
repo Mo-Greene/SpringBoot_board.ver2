@@ -28,10 +28,10 @@ public class PageRequestDTO {
     private int size = 10;
 
     /* 조회 쿼리 */
-    private LocalDate from;
-    private LocalDate to;
-    private String keyword;
+    private String from;
+    private String to;
     private Long cno;
+    private String keyword;
 
     public int getSkip() {
         return (page - 1) * 10;

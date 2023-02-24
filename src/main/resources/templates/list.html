@@ -20,17 +20,17 @@
             <div class="card-body">
                 <h5 class="card-title">검색</h5>
                 <form action="/board/list" method="get">
-                    <input type="hidden" name="size" value="${pageRequestDTO.size}">
                     <div class="input-group mb-3 dueDateDiv">
                         <input type="date" name="from" class="form-control">
                         <input type="date" name="to" class="form-control">
                     </div>
                     <div class="input-group mb-3">
-                        <select class="form-select" name="cno" aria-label="Floating label select example">
-                            <option selected>카테고리 선택</option>
-                            <option value="1">JAVA</option>
-                            <option value="2">C</option>
-                            <option value="3">PYTHON</option>
+                        <input type="hidden" name="cno" id="cno" />
+                        <select class="form-select" name="cno" onchange="valueNumber(this.value)">
+                            <option value="0">카테고리 선택</option>
+                            <option value="JAVA">JAVA</option>
+                            <option value="C">C</option>
+                            <option value="PYTHON">PYTHON</option>
                         </select>
                     </div>
                     <div>
@@ -50,6 +50,9 @@
 <div class="border container-sm">
     <table class="table">
         <thead class="table-light">
+        <tr>
+            총 [[ ${list.total} ]] 건
+        </tr>
         <tr style="text-align: center;">
             <th scope="col">카테고리</th>
             <th scope="col">제목</th>
@@ -106,6 +109,19 @@
         self.location = `/board/list?page=${num}`
     }, false);
 
+    function valueNumber(text_value) {
+        var num_value = '';
+        if (text_value === '0') {
+            num_value = 0;
+        } else if (text_value === 'JAVA') {
+            num_value = 1;
+        } else if (text_value === 'C') {
+            num_value = 2;
+        } else if (text_value === 'PYTHON') {
+            num_value = 3;
+        }
+        document.querySelector("#cno").value = num_value;
+    }
 </script>
 </body>
 </html>

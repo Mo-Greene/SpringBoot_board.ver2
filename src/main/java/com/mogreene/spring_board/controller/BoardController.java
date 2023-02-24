@@ -40,6 +40,7 @@ public class BoardController {
                                  BindingResult bindingResult,
                                  Model model) {
         log.info("Get ListWithPaging...");
+        log.info("pageRequestDTO : " + pageRequestDTO);
 
         if (bindingResult.hasErrors()) {
             pageRequestDTO = PageRequestDTO.builder().build();

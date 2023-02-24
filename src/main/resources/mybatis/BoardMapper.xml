@@ -2,30 +2,53 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mogreene.spring_board.dao.BoardDAO">
+    <!--동적쿼리 추출-->
+    <sql id="search">
+        <where>
+            <if test="keyword != null and keyword.length > 0">
+                title LIKE CONCAT('%', #{keyword}, '%')
+                OR content LIKE CONCAT('%', #{keyword}, '%')
+                OR writer LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="cno > 0">
+                <trim prefix="and">
+                    b.cno = #{cno}
+                </trim>
+            </if>
+            <if test="from != null and to != null">
+                <trim prefix="and">
+                    regDate BETWEEN date(#{from}) AND date(#{to})
+                </trim>
+            </if>
+        </where>
+    </sql>
 
-    <!--게시글 갯수-->
+    <!--게시글 갯수 + 검색조건 데이터-->
     <select id="totalCount" resultType="int">
         SELECT
             count(bno)
         FROM
-            board
-    </select>
-
-    <!--게시글 전체조회-->
-    <select id="getBoardList" resultType="com.mogreene.spring_board.dto.BoardDTO">
-        SELECT
-            bno, c.category, title, writer, view, regDate, modDate
-        FROM
             board b
-            JOIN
-                category c ON b.cno = c.cno
-        ORDER BY
-            bno
-        DESC
-            limit 0, 10
+        <where>
+            <if test="keyword != null and keyword.length > 0">
+                title LIKE CONCAT('%', #{keyword}, '%')
+                OR content LIKE CONCAT('%', #{keyword}, '%')
+                OR writer LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="cno > 0">
+                <trim prefix="and">
+                    b.cno = #{cno}
+                </trim>
+            </if>
+            <if test="from != null and to != null">
+                <trim prefix="and">
+                    regDate BETWEEN date(#{from}) AND date(#{to})
+                </trim>
+            </if>
+        </where>
     </select>
 
-    <!--페이지 네이션-->
+    <!--페이지 네이션 + 검색조건 데이터-->
     <select id="getBoardListWithPaging" resultType="com.mogreene.spring_board.dto.BoardDTO">
         SELECT
             bno, c.category, title, writer, view, regDate, modDate
@@ -33,6 +56,23 @@
             board b
             JOIN
             category c ON b.cno = c.cno
+        <where>
+            <if test="keyword != null and keyword.length > 0">
+                title LIKE CONCAT('%', #{keyword}, '%')
+                OR content LIKE CONCAT('%', #{keyword}, '%')
+                OR writer LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="cno > 0">
+                <trim prefix="and">
+                    b.cno = #{cno}
+                </trim>
+            </if>
+            <if test="from != null and to != null">
+                <trim prefix="and">
+                    regDate BETWEEN date(#{from}) AND date(#{to})
+                </trim>
+            </if>
+        </where>
         ORDER BY
             bno DESC
             limit #{skip}, #{size}
@@ -87,6 +127,7 @@
             bno = #{bno}
     </update>
 
+    <!--비밀번호 확인-->
     <select id="dbPassword" resultType="String">
         SELECT
             password
@@ -94,5 +135,5 @@
             board
         WHERE
             bno = #{bno}
-    </select>
+    </select>    
 </mapper>
