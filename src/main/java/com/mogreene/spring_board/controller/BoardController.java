@@ -21,6 +21,7 @@ import javax.validation.Valid;
 import java.io.File;
 import java.util.List;
 
+// TODO: 2023/02/25 패키지는 다 소문자로 붙여서 + 구글컨벤션 정독
 /**
  * 게시판 컨트롤러
  */
@@ -41,6 +42,7 @@ public class BoardController {
      * @param model
      * @return list.html
      */
+    // TODO: 2023/02/25 목록과 페이지네이션 따로 분리
     @GetMapping("/list")
     public String listWithPaging(@Valid PageRequestDTO pageRequestDTO,
                                  BindingResult bindingResult,
@@ -89,14 +91,13 @@ public class BoardController {
         }
 
         // TODO: 2023/02/25 파일업로드
+        // TODO: 2023/02/25 예외처리 많이 공부! 
         log.info("file : " + multipartFile);
         try {
             String fileRealName = multipartFile.getOriginalFilename();
             String fileName = new MD5Generator(fileRealName).toString();
-            log.info("fileRealName ? : " + fileRealName);
-            log.info("fileName : " + fileName);
+            // TODO: 2023/02/25 경로는 application으로 @Value로 관리 
             String savePath = System.getProperty("user.home") + "/Desktop/files/";
-            log.info("savePath : " + savePath);
             if (!new File(savePath).exists()) {
                 try {
                     new File(savePath).mkdir();
@@ -106,18 +107,16 @@ public class BoardController {
             }
             String filePath = savePath + fileName;
             multipartFile.transferTo(new File(filePath));
-            log.info("filePath : " + filePath);
 
             FileDTO fileDTO = new FileDTO();
             fileDTO.setFileRealName(fileRealName);
             fileDTO.setFileName(fileName);
             fileDTO.setFilePath(filePath);
             Long fno = fileService.saveFile(fileDTO);
+
             boardDTO.setFno(fno);
-            log.info("------------------------");
-            log.info("boardDTO : " + boardDTO);
-            log.info("------------------------");
             boardService.postArticle(boardDTO);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -133,10 +132,12 @@ public class BoardController {
      */
     @GetMapping("/view/{bno}")
     public String getBoardView(@PathVariable("bno") Long bno, Model model) {
-        log.info("getBoardView...");
+
         BoardDTO boardDTO = boardService.getBoardView(bno);
+
         List<ReplyDTO> replyList = replyService.getReply(bno);
         boardDTO.setReplyList(replyList);
+
         model.addAttribute("dto", boardDTO);
         return "view";
     }

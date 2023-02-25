@@ -41,6 +41,7 @@ public class BoardService {
      * getBoardListWithPaging 메서드 추출
      * @param list
      */
+    // TODO: 2023/02/25 글자수 바이트 고려한 고민
     private void skipTitle(List<BoardDTO> list) {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getTitle().length() > 80) {
@@ -51,10 +52,11 @@ public class BoardService {
     }
 
     /**
-     * 게시글 등록 및 비밀번호 복호화
+     * 게시글 등록 및 비밀번호
      * @param boardDTO
      * @throws Exception
      */
+    // TODO: 2023/02/25 decoding 암호화 법적인 생각좀
     public void postArticle(BoardDTO boardDTO) throws Exception {
         log.info("postArticle...");
 

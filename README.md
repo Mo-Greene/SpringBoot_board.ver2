@@ -1,3 +1,23 @@
+# 🌏 Board ver.3 (Developing SpringBoot)
+
+## 🛠 Stack
+- SpringBoot
+- Thymeleaf
+- MariaDB
+- Mybatis
+
+<br/>
+
+## 🖥 ERD
+<img width="435" alt="스크린샷 2023-02-25 오후 1 46 13" src="https://user-images.githubusercontent.com/97177357/221359134-4f8806b6-8189-48b6-a872-3132b56b93c1.png">
+
+<br/>
+
+## 📅 Day Log
+
+<details>
+<summary>Todo List</summary>
+
 ## 2023.02.20(월)
 ### 한것
 - Mybatis 연동
@@ -52,3 +72,6 @@
 - 예외처리 부분 생각(ex.없는 번호를 조회 했다면? 기타 등등)
 - 댓글 비동기방식
 - 비밀번호 확인(수정/삭제) 페이지 or 모달로 처리
+
+- db설계 이름 소문자_언더바
+</details>
