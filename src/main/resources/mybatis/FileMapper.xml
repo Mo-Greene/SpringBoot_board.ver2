@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mogreene.spring_board.dao.FileDAO">
+
+    <insert id="saveFile" parameterType="com.mogreene.spring_board.dto.FileDTO" useGeneratedKeys="true" keyProperty="fno">
+        INSERT INTO
+            file
+            (fileRealName, fileName, filePath)
+        VALUES
+            (#{fileRealName}, #{fileName}, #{filePath})
+    </insert>
+
+</mapper>

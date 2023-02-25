@@ -1,19 +1,24 @@
 package com.mogreene.spring_board.controller;
 
 import com.mogreene.spring_board.dto.BoardDTO;
+import com.mogreene.spring_board.dto.FileDTO;
 import com.mogreene.spring_board.dto.PageRequestDTO;
 import com.mogreene.spring_board.dto.ReplyDTO;
 import com.mogreene.spring_board.service.BoardService;
+import com.mogreene.spring_board.service.FileService;
 import com.mogreene.spring_board.service.ReplyService;
+import com.mogreene.spring_board.util.MD5Generator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -27,6 +32,7 @@ public class BoardController {
 
     private final BoardService boardService;
     private final ReplyService replyService;
+    private final FileService fileService;
 
     /**
      * 게시글 페이지 네이션
@@ -67,8 +73,10 @@ public class BoardController {
      * @param redirectAttributes
      * @return write.html
      */
+    // TODO: 2023/02/24 파일업로드 구현 하자 
     @PostMapping("/write")
     public String insert(@Valid BoardDTO boardDTO,
+                         @RequestParam("file") MultipartFile multipartFile,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) throws Exception {
         log.info("Post write...");
@@ -79,7 +87,37 @@ public class BoardController {
 
             return "redirect:/board/write";
         }
-        boardService.postArticle(boardDTO);
+
+        // TODO: 2023/02/25 파일업로드
+        log.info("file : " + multipartFile);
+        try {
+            String fileRealName = multipartFile.getOriginalFilename();
+            String fileName = new MD5Generator(fileRealName).toString();
+            log.info("fileRealName ? : " + fileRealName);
+            log.info("fileName : " + fileName);
+            String savePath = System.getProperty("user.home") + "/Desktop/files/";
+            log.info("savePath : " + savePath);
+            if (!new File(savePath).exists()) {
+                try {
+                    new File(savePath).mkdir();
+                } catch (Exception e) {
+                    e.getStackTrace();
+                }
+            }
+            String filePath = savePath + fileName;
+            multipartFile.transferTo(new File(filePath));
+            log.info("filePath : " + filePath);
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setFileRealName(fileRealName);
+            fileDTO.setFileName(fileName);
+            fileDTO.setFilePath(filePath);
+            Long fno = fileService.saveFile(fileDTO);
+            boardDTO.setFno(fno);
+            boardService.postArticle(boardDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return "redirect:/board/list";
     }

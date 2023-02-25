@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 댓글 컨트롤러
+ */
 @Slf4j
 @Controller
 @RequestMapping("/board")

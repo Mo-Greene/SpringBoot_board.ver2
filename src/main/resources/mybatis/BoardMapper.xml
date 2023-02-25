@@ -10,7 +10,7 @@
                 OR content LIKE CONCAT('%', #{keyword}, '%')
                 OR writer LIKE CONCAT('%', #{keyword}, '%')
             </if>
-            <if test="cno > 0">
+            <if test="cno gt 0">
                 <trim prefix="and">
                     b.cno = #{cno}
                 </trim>
