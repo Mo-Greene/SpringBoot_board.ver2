@@ -24,4 +24,9 @@ public class FileService {
 
         return fileDTO.getFno();
     }
+
+    public FileDTO getFile(Long fno) {
+        log.info("getFile..." );
+        return fileDAO.getFile(fno);
+    }
 }

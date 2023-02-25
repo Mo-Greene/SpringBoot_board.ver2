@@ -7,4 +7,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface FileDAO {
 
     Long saveFile(FileDTO fileDTO);
+    FileDTO getFile(Long fno);
 }

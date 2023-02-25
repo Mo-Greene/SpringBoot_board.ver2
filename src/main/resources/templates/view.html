@@ -50,6 +50,14 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <div th:if="${dto.fno != null}">
+                                <strong>첨부파일 : </strong>
+                                <a
+                                        class="card-text"
+                                        th:href="@{'/download/' + ${dto.fno}}"
+                                        th:text="${dto.fno}"
+                                ></a>
+                            </div>
 
                             <form action="/board/reply/write" method="post">
                                 <input type="hidden" th:name="bno" th:value="${dto.bno}">

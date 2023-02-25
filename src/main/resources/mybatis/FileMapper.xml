@@ -11,4 +11,13 @@
             (#{fileRealName}, #{fileName}, #{filePath})
     </insert>
 
+    <select id="getFile" parameterType="long" resultType="com.mogreene.spring_board.dto.FileDTO">
+        SELECT
+            *
+        FROM
+            file
+        WHERE
+            fno = #{fno}
+    </select>
+
 </mapper>

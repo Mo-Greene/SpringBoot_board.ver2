@@ -114,6 +114,9 @@ public class BoardController {
             fileDTO.setFilePath(filePath);
             Long fno = fileService.saveFile(fileDTO);
             boardDTO.setFno(fno);
+            log.info("------------------------");
+            log.info("boardDTO : " + boardDTO);
+            log.info("------------------------");
             boardService.postArticle(boardDTO);
         } catch (Exception e) {
             e.printStackTrace();
