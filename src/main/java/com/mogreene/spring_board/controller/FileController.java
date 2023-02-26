@@ -39,7 +39,9 @@ public class FileController {
     public ResponseEntity<Resource> fileDownload(@PathVariable("fno") Long fno) throws IOException {
         FileDTO fileDTO = fileService.getFile(fno);
         Path path = Paths.get(fileDTO.getFilePath());
+
         Resource resource = new InputStreamResource(Files.newInputStream(path));
+
         return ResponseEntity.ok().contentType(MediaType.parseMediaType("application/octet-stream"))
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=\"" + fileDTO.getFileRealName() + "\"")

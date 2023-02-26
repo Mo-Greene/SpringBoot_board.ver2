@@ -4,9 +4,9 @@ import com.mogreene.spring_board.dao.BoardDAO;
 import com.mogreene.spring_board.dto.BoardDTO;
 import com.mogreene.spring_board.dto.PageRequestDTO;
 import com.mogreene.spring_board.dto.PageResponseDTO;
+import com.mogreene.spring_board.util.MD5Generator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +17,6 @@ import java.util.List;
 public class BoardService {
 
     private final BoardDAO boardDAO;
-    private final PasswordEncoder passwordEncoder;
 
     /**
      * 게시글 페이지네이션 조회 + 제목 80자 이상 제한
@@ -56,17 +55,13 @@ public class BoardService {
      * @param boardDTO
      * @throws Exception
      */
-    // TODO: 2023/02/25 decoding 암호화 법적인 생각좀
     public void postArticle(BoardDTO boardDTO) throws Exception {
         log.info("postArticle...");
 
-        if (!boardDTO.getPassword().equals(boardDTO.getPasswordCheck())) {
-            throw new Exception("비밀번호가 같지 않습니다.");
-        } else {
-            String password = passwordEncoder.encode(boardDTO.getPassword());
-            boardDTO.setPassword(password);
-            boardDAO.postArticle(boardDTO);
-        }
+        String password = new MD5Generator(boardDTO.getPassword()).toString();
+        boardDTO.setPassword(password);
+
+        boardDAO.postArticle(boardDTO);
     }
 
     /**
@@ -100,9 +95,9 @@ public class BoardService {
         log.info("updateArticle...");
 
         String password = boardDAO.dbPassword(boardDTO);
-        if (!passwordEncoder.matches(boardDTO.getPassword(), password)) {
-            throw new Exception("비밀번호가 같지 않습니다.");
-        }
+//        if (!passwordEncoder.matches(boardDTO.getPassword(), password)) {
+//            throw new Exception("비밀번호가 같지 않습니다.");
+//        }
         boardDAO.updateArticle(boardDTO);
     }
 }
