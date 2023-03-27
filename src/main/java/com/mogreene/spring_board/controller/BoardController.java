@@ -21,7 +21,6 @@ import javax.validation.Valid;
 import java.io.File;
 import java.util.List;
 
-// TODO: 2023/02/25 패키지는 다 소문자로 붙여서 + 구글컨벤션 정독
 /**
  * 게시판 컨트롤러
  */
@@ -75,7 +74,7 @@ public class BoardController {
      * @param redirectAttributes
      * @return write.html
      */
-    // TODO: 2023/02/24 파일업로드 구현 하자 
+    // TODO: 2023/02/24 파일업로드 구현 하자
     @PostMapping("/write")
     public String insert(@Valid BoardDTO boardDTO,
                          @RequestParam("file") MultipartFile multipartFile,
@@ -91,12 +90,12 @@ public class BoardController {
         }
 
         // TODO: 2023/02/25 파일업로드
-        // TODO: 2023/02/25 예외처리 많이 공부! 
+        // TODO: 2023/02/25 예외처리 많이 공부!
         log.info("file : " + multipartFile);
         try {
             String fileRealName = multipartFile.getOriginalFilename();
             String fileName = new MD5Generator(fileRealName).toString();
-            // TODO: 2023/02/25 경로는 application으로 @Value로 관리 
+            // TODO: 2023/02/25 경로는 application으로 @Value로 관리
             String savePath = System.getProperty("user.home") + "/Desktop/files/";
             if (!new File(savePath).exists()) {
                 try {
@@ -160,7 +159,7 @@ public class BoardController {
      * @param model
      * @return
      */
-    // TODO: 2023/02/22 게시글 수정 조회시에도 조회수가 올라감! 
+    // TODO: 2023/02/22 게시글 수정 조회시에도 조회수가 올라감!
     @GetMapping("/modify/{bno}")
     public String getModify(@PathVariable("bno") Long bno, Model model) {
         log.info("getModify...");

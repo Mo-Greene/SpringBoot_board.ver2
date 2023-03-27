@@ -34,7 +34,6 @@ public class FileController {
      * @return
      * @throws IOException
      */
-    // TODO: 2023/02/25 컨트롤러랑 서비스로 분리해야됨
     @GetMapping("/download/{fno}")
     public ResponseEntity<Resource> fileDownload(@PathVariable("fno") Long fno) throws IOException {
         FileDTO fileDTO = fileService.getFile(fno);

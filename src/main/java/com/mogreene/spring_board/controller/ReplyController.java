@@ -24,11 +24,9 @@ public class ReplyController {
      * @param replyDTO
      * @return
      */
-    // TODO: 2023/02/23 비동기 처리 필요
     @PostMapping("/reply/write")
     public String writeReply(ReplyDTO replyDTO) {
-        log.info("writeReply...");
-        log.info("replyDTO : " + replyDTO);
+
         replyService.postReply(replyDTO);
         Long bno = replyDTO.getBno();
         return "redirect:/board/view/" + bno;

@@ -40,7 +40,6 @@ public class BoardService {
      * getBoardListWithPaging 메서드 추출
      * @param list
      */
-    // TODO: 2023/02/25 글자수 바이트 고려한 고민
     private void skipTitle(List<BoardDTO> list) {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getTitle().length() > 80) {

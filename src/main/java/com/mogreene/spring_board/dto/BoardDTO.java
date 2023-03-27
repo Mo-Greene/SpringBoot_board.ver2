@@ -15,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardDTO {
-    //todo 정규식 테스트만 해보고 일단 지우고 진행
 
     private Long bno;
 
