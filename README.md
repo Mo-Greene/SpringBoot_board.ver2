@@ -1,4 +1,4 @@
-# 🌏 Board ver.3 (Developing SpringBoot)
+# 🌏 Board ver.2 (Developing SpringBoot)
 
 ## 🛠 Stack
 - SpringBoot
